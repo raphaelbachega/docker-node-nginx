@@ -2,9 +2,9 @@ FROM node:15
 
 WORKDIR /usr/src/app
 
-COPY ./package*.json /usr/src/app
+# COPY ./package*.json /usr/src/app
 
-RUN npm install
+# RUN npm install
 
 ENV DOCKERIZE_VERSION v0.7.0
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
