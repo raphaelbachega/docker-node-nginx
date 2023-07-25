@@ -6,11 +6,12 @@ services:
     build:
       context: node
     container_name: node
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh node index.js
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh sh -c "npm init -y && npm install express mysql && node index.js"
     networks:
       - node-network
     volumes:
       - ./node:/usr/src/app
+      - /usr/src/app/node_modules
     tty: true
     # ports:
     #   - "3000:3000"
@@ -33,11 +34,11 @@ services:
 
   nginx:
     build: 
-      context: ./nginx
+      context: nginx
     # image: nginx:1.15.0-alpine
     container_name: nginx
-    # volumes:
-    #   - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - node-network
     ports:
